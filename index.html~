@@ -14,8 +14,8 @@
 
 				<!-- Intro -->
 					<div id="intro">
-						<h1>Buds and<br />
-						Grabba</h1>
+						<h1><br />
+						</h1>
 						<p>Road to the Infused Experience 2026</p>
 						<ul class="actions">
 							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
@@ -36,9 +36,8 @@
 						</ul>
 						<ul class="icons">
 							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.instagram.com/taylorgang3415/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="https://www.instagram.com/taylorgang3415/" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
 						</ul>
 					</nav>
 
@@ -55,11 +54,11 @@
 									<a href="https://labordaybbqthebackyardexp.rsvpify.com/?securityToken=vfIw0wFFOPJWKoPaWju8U7v4xvgacmJ7" target="_blank">RSVP Now!</a></p>
 								</header>
 								<a href="#" class="image main"><img src="images/bbq.png" alt="" /></a>
+							<p>Get ready for an unforgettable celebration as Kay’s Delight Bistro presents the ultimate Labor Day BBQ: The Backyard Experience! Join us for an afternoon filled with mouthwatering food, island vibes, and fun backyard games, all backed by the hottest sounds from top DJs out of Atlanta and New York. Whether you’re vibing with friends, playing a round of dominoes, or indulging in our chef’s best dishes, this is the perfect way to close out summer.</p>
 								<ul class="actions special">
 									<!--<li><a href="#" class="button large">Full Story</a></li>-->
 								</ul>
 							</article>
-
 						<!-- Posts -->
 						<!--	<section class="posts">
 								<article>
