@@ -6,6 +6,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+    		.gallery {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 10px;
+    			}
+    		.gallery img {
+				width: 100%;
+				height: auto;
+				border-radius: 8px;
+				transition: transform 0.3s;
+    			}
+    		.gallery img:hover {
+				transform: scale(1.05);
+    			}
+  		</style>
 	</head>
 	<body class="is-preload">
 
@@ -41,10 +57,11 @@
 									<h1>Photo<br />
 									Gallery</h1>
 								</header>
-
-								<!-- Text stuff -->
-									<h2>Coming Soon</h2>
-
+								<div class="gallery">
+									<img src="https://www.dropbox.com/s/abc123/image1.jpg?raw=1" alt="Photo 1">
+									<img src="https://www.dropbox.com/s/def456/image2.jpg?raw=1" alt="Photo 2">
+									<img src="https://www.dropbox.com/s/ghi789/image3.jpg?raw=1" alt="Photo 3">
+								</div>
 							</section>
 
 					</div>
