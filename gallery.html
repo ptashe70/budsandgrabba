@@ -21,7 +21,129 @@
     		.gallery img:hover {
 				transform: scale(1.05);
     			}
-  		</style>
+			/* --- Design tokens --- */
+			:root{
+				--gap: 16px;           /* spacing between items */
+				--min: 220px;          /* minimum tile width before wrapping */
+				--radius: 12px;        /* rounded corners */
+				--shadow: 0 6px 20px rgba(0,0,0,.08);
+			}
+
+			/* --- Page base --- */
+			* { box-sizing: border-box; }
+			body{
+				margin: 0;
+				font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+				color: #111;
+				background: #f7f7f8;
+			}
+			header{
+				padding: 2rem 1rem 1rem;
+				text-align: center;
+			}
+			header h1{ margin: 0 0 .25rem; font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+			header p{ margin: 0; color: #555; }
+
+			/* --- The gallery --- */
+			.gallery{
+				display: flex;
+				flex-wrap: wrap;          /* allow items to wrap to new rows */
+				gap: var(--gap);          /* modern way to add gutters */
+				padding: 1rem;
+				max-width: 1200px;
+				margin: 0 auto 3rem;
+			}
+
+			.gallery > figure{
+				flex: 1 1 var(--min);     /* grow, shrink, base width */
+				margin: 0;
+				border-radius: var(--radius);
+				overflow: hidden;         /* clip zoomed image corners */
+				box-shadow: var(--shadow);
+				position: relative;
+				background: #ddd;         /* nice while image loads */
+			}
+
+			.gallery img{
+				width: 100%;
+				height: 100%;
+				display: block;
+				object-fit: cover;        /* fill the tile without distortion */
+				aspect-ratio: 4 / 3;      /* uniform tile shape; change if you like */
+				transition: transform .35s ease;
+			}
+
+			/* Subtle zoom on hover/focus (keyboard users too) */
+			.gallery > figure:is(:hover, :focus-within) img{
+			 transform: scale(1.05);
+			}
+
+			/* Optional caption overlay */
+			.gallery figcaption{
+				position: absolute;
+				inset: auto 0 0 0;        /* bottom stretch */
+				padding: .5rem .75rem;
+				color: #fff;
+				font-weight: 600;
+				font-size: .9rem;
+				background: linear-gradient(transparent, rgba(0,0,0,.55));
+				opacity: 0;
+				transition: opacity .25s ease;
+			}
+			.gallery > figure:is(:hover, :focus-within) figcaption{ opacity: 1; }
+
+			/* Nice focus ring for accessibility */
+			.gallery a{
+				position: absolute;
+				inset: 0;
+				outline: none;
+			}
+			.gallery a:focus-visible{
+				box-shadow: 0 0 0 3px #fff, 0 0 0 6px #2563eb;
+				border-radius: var(--radius);
+			}
+
+			/* Optional: adjust minimum tile width at smaller screens */
+			@media (max-width: 520px){
+				:root{ --min: 160px; }
+			}
+			/* --- Lightbox --- */
+			.lightbox{
+				position: fixed; inset: 0;
+				display: none; align-items: center; justify-content: center;
+				background: rgba(0,0,0,.85);
+				padding: 2rem; z-index: 9999;
+			}
+			.lightbox.is-open{ display: flex; }
+
+			.lightbox .lb-img{
+				max-width: min(96vw, 1600px);
+				max-height: 86vh;
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+			}
+
+			.lightbox .lb-close,
+			.lightbox .lb-prev,
+			.lightbox .lb-next{
+				position: absolute; background: transparent; border: 0; color: #fff;
+				cursor: pointer; line-height: 1;
+			}
+
+			.lightbox .lb-close{ top: 1rem; right: 1rem; font-size: 2rem; }
+			.lightbox .lb-prev, .lightbox .lb-next{
+				top: 50%; transform: translateY(-50%); padding: .25rem .5rem; font-size: 2.5rem;
+			}
+			.lightbox .lb-prev{ left: 1rem; }
+			.lightbox .lb-next{ right: 1rem; }
+
+			.lightbox .lb-caption{
+				position: absolute; left: 0; right: 0; bottom: 1rem;
+				text-align: center; color: #fff; font-weight: 600;
+				text-shadow: 0 1px 2px rgba(0,0,0,.6);
+			}
+
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -47,22 +169,33 @@
 							<li><a href="https://www.instagram.com/budsandgrabba"  target="_blank" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
 						</ul>
 					</nav>
-
+				
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Post -->
-							<section class="post">
-								<header class="major">
+								<header>
 									<h1>Photo<br />
-									Gallery</h1>
+									Gallery</h1><br />
 								</header>
-								<div class="gallery">
-									<!--<img src="" alt="Photo 1"> -->
-									<!--<img src="" alt="Photo 2"> -->
-									<!--<img src="" alt="Photo 3"> -->
-								</div>
-							<h2><center>Photos Coming Soon!</center></h2>
+							<section class="gallery">
+								<figure>
+								<img src="https://picsum.photos/id/1015/1200/900" alt="Mountain lake" loading="lazy">
+								<figcaption>Mountain lake</figcaption>
+								<a href="#" aria-label="Open Mountain lake"></a>
+								</figure>
+
+								<figure>
+								<img src="https://picsum.photos/id/1025/1200/900" alt="Curious dog" loading="lazy">
+								<figcaption>Curious dog</figcaption>
+								<a href="#" aria-label="Open Curious dog"></a>
+								</figure>
+
+								<figure>
+								<img src="https://picsum.photos/id/1035/1200/900" alt="Forest trail" loading="lazy">
+								<figcaption>Forest trail</figcaption>
+								<a href="#" aria-label="Open Forest trail"></a>
+								</figure>
 							</section>
 
 					</div>
@@ -92,7 +225,14 @@
 					</div>
 
 			</div>
-
+		<!-- Lightbox (click image to open, Esc/click backdrop to close) -->
+		<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+			<button class="lb-close" aria-label="Close (Esc)">&times;</button>
+			<button class="lb-prev" aria-label="Previous image">‹</button>
+			<img class="lb-img" alt="">
+			<button class="lb-next" aria-label="Next image">›</button>
+			<div class="lb-caption" aria-live="polite"></div>
+		</div>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -101,6 +241,70 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+			(() => {
+			const figures = Array.from(document.querySelectorAll('.gallery > figure'));
+			const items = figures.map(fig => {
+				const img = fig.querySelector('img');
+				const cap = fig.querySelector('figcaption')?.textContent?.trim() || img.alt || '';
+				const full = img.dataset.full || img.src;  // use data-full if provided
+				const link = fig.querySelector('a');
+				if (link) link.href = full; // graceful non-JS fallback
+				return { img, cap, full, fig };
+			});
 
+			const lb = document.getElementById('lightbox');
+			const lbImg = lb.querySelector('.lb-img');
+			const lbCap = lb.querySelector('.lb-caption');
+			const btnClose = lb.querySelector('.lb-close');
+			const btnPrev = lb.querySelector('.lb-prev');
+			const btnNext = lb.querySelector('.lb-next');
+
+			let i = 0;
+
+			function open(idx){
+				i = (idx + items.length) % items.length;
+				const { full, cap, img } = items[i];
+				lbImg.src = full;
+				lbImg.alt = img.alt || cap || 'Photo';
+				lbCap.textContent = cap;
+				lb.classList.add('is-open');
+				lb.setAttribute('aria-hidden','false');
+				document.body.style.overflow = 'hidden';
+				btnClose.focus();
+				// Preload neighbors
+				[items[(i+1)%items.length].full, items[(i-1+items.length)%items.length].full].forEach(src => {
+				const pre = new Image(); pre.src = src;
+				});
+			}
+
+			function close(){
+				lb.classList.remove('is-open');
+				lb.setAttribute('aria-hidden','true');
+				document.body.style.overflow = '';
+				lbImg.src = '';
+			}
+			const next = () => open(i+1);
+			const prev = () => open(i-1);
+
+			document.querySelector('.gallery').addEventListener('click', e => {
+				const fig = e.target.closest('figure');
+				if (!fig) return;
+				e.preventDefault();
+				open(figures.indexOf(fig));
+			});
+
+			btnClose.addEventListener('click', close);
+			btnNext.addEventListener('click', next);
+			btnPrev.addEventListener('click', prev);
+			lb.addEventListener('click', e => { if (e.target === lb) close(); });
+			document.addEventListener('keydown', e => {
+				if (!lb.classList.contains('is-open')) return;
+				if (e.key === 'Escape') close();
+				if (e.key === 'ArrowRight') next();
+				if (e.key === 'ArrowLeft') prev();
+			});
+			})();
+			</script>
 	</body>
 </html>
